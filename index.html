@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartTutor - AI-Driven Smart Learning System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mint-green': '#00D4AA',
+                        'green-teal': '#00B894',
+                        'dark-green': '#00A085'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-graduation-cap text-3xl text-mint-green mr-2"></i>
+                        <h1 class="text-2xl font-bold text-gray-800">SmartTutor</h1>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="#features" class="text-gray-700 hover:text-mint-green px-3 py-2 text-sm font-medium transition-colors">Features</a>
+                        <a href="#courses" class="text-gray-700 hover:text-mint-green px-3 py-2 text-sm font-medium transition-colors">Courses</a>
+                        <a href="#instructors" class="text-gray-700 hover:text-mint-green px-3 py-2 text-sm font-medium transition-colors">Instructors</a>
+                        <!-- Dashboard Links -->
+                        <div class="relative group">
+                            <button class="text-gray-700 hover:text-mint-green px-3 py-2 text-sm font-medium transition-colors flex items-center">
+                                Dashboards <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </button>
+                            <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="py-1">
+                                    <a href="student/dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-mint-green hover:text-white transition-colors">
+                                        <i class="fas fa-user-graduate mr-2"></i>Student Dashboard
+                                    </a>
+                                    <a href="instructor/dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-mint-green hover:text-white transition-colors">
+                                        <i class="fas fa-chalkboard-teacher mr-2"></i>Instructor Dashboard
+                                    </a>
+                                    <a href="admin/dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-mint-green hover:text-white transition-colors">
+                                        <i class="fas fa-cog mr-2"></i>Admin Dashboard
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showLogin()" class="text-gray-700 hover:text-mint-green px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</button>
+                    <button onclick="showRegister()" class="bg-gradient-to-r from-mint-green to-green-teal hover:from-green-teal hover:to-dark-green text-white px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl">Get Started Free</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-mint-green via-green-teal to-dark-green overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <h1 class="text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Master Any Skill with
+                        <span class="block text-yellow-300">AI-Powered Learning</span>
+                    </h1>
+                    <p class="text-xl lg:text-2xl mb-8 text-green-100 leading-relaxed">
+                        Join over 100,000+ students learning with personalized AI tutoring, interactive courses, and hands-on coding practice.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <button onclick="showRegister()" class="bg-white text-green-teal px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            Start Learning Today
+                        </button>
+                        <button class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-teal transition-all duration-300">
+                            <i class="fas fa-play mr-2"></i>Watch Demo
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-6 text-green-100">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-300 mr-1"></i>
+                            <span class="font-semibold">4.9/5</span>
+                            <span class="ml-1">Rating</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-users mr-2"></i>
+                            <span class="font-semibold">100K+</span>
+                            <span class="ml-1">Students</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-certificate mr-2"></i>
+                            <span class="font-semibold">500+</span>
+                            <span class="ml-1">Courses</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                        <div class="bg-gradient-to-r from-mint-green to-green-teal rounded-lg p-6 mb-6">
+                            <div class="flex items-center justify-between text-white mb-4">
+                                <h3 class="text-lg font-semibold">Your Learning Dashboard</h3>
+                                <i class="fas fa-chart-line text-2xl"></i>
+                            </div>
+                            <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm">Progress</span>
+                                    <span class="text-sm font-semibold">78%</span>
+                                </div>
+                                <div class="w-full bg-white bg-opacity-30 rounded-full h-2">
+                                    <div class="bg-yellow-300 h-2 rounded-full" style="width: 78%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                <div class="w-10 h-10 bg-mint-green rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-code text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-800">JavaScript Mastery</p>
+                                    <p class="text-sm text-gray-600">Next: Async Programming</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                <div class="w-10 h-10 bg-green-teal rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-robot text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-800">AI & Machine Learning</p>
+                                    <p class="text-sm text-gray-600">Next: Neural Networks</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="group">
+                    <div class="text-4xl font-bold text-mint-green mb-2 group-hover:scale-110 transition-transform duration-300">100K+</div>
+                    <div class="text-gray-600 font-medium">Active Students</div>
+                </div>
+                <div class="group">
+                    <div class="text-4xl font-bold text-mint-green mb-2 group-hover:scale-110 transition-transform duration-300">500+</div>
+                    <div class="text-gray-600 font-medium">Expert Courses</div>
+                </div>
+                <div class="group">
+                    <div class="text-4xl font-bold text-mint-green mb-2 group-hover:scale-110 transition-transform duration-300">50+</div>
+                    <div class="text-gray-600 font-medium">Industry Experts</div>
+                </div>
+                <div class="group">
+                    <div class="text-4xl font-bold text-mint-green mb-2 group-hover:scale-110 transition-transform duration-300">95%</div>
+                    <div class="text-gray-600 font-medium">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose SmartTutor?</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Experience the future of education with our cutting-edge AI technology and personalized learning approach.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-mint-green to-green-teal rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">AI-Powered Personalization</h3>
+                    <p class="text-gray-600 leading-relaxed">Our advanced AI analyzes your learning style and adapts content to maximize your understanding and retention.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-mint-green to-green-teal rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-code text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Interactive Coding Labs</h3>
+                    <p class="text-gray-600 leading-relaxed">Practice coding in real-time with our integrated development environment and instant feedback system.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-mint-green to-green-teal rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-users text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Expert Instructors</h3>
+                    <p class="text-gray-600 leading-relaxed">Learn from industry professionals with years of experience in their respective fields.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-mint-green to-green-teal rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-certificate text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Industry Certifications</h3>
+                    <p class="text-gray-600 leading-relaxed">Earn recognized certifications that boost your career prospects and validate your skills.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-mint-green to-green-teal rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Learn Anywhere</h3>
+                    <p class="text-gray-600 leading-relaxed">Access your courses on any device, anytime, anywhere with our responsive platform.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-mint-green to-green-teal rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Progress Tracking</h3>
+                    <p class="text-gray-600 leading-relaxed">Monitor your learning journey with detailed analytics and personalized recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Courses Section -->
+    <section id="courses" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Popular Courses</h2>
+                <p class="text-xl text-gray-600">Discover our most loved courses by thousands of students worldwide</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+                    <div class="h-48 bg-gradient-to-r from-mint-green to-green-teal flex items-center justify-center">
+                        <i class="fas fa-laptop-code text-white text-6xl group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-mint-green text-white px-3 py-1 rounded-full text-sm font-medium">Beginner</span>
+                            <div class="flex items-center text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <span class="ml-1 text-gray-600">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Complete Web Development</h3>
+                        <p class="text-gray-600 mb-4">Master HTML, CSS, JavaScript, and modern frameworks to build stunning websites.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-gray-500">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span class="text-sm">40 hours</span>
+                            </div>
+                            <div class="text-2xl font-bold text-mint-green">$99</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+                    <div class="h-48 bg-gradient-to-r from-green-teal to-dark-green flex items-center justify-center">
+                        <i class="fas fa-robot text-white text-6xl group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-green-teal text-white px-3 py-1 rounded-full text-sm font-medium">Intermediate</span>
+                            <div class="flex items-center text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <span class="ml-1 text-gray-600">4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">AI & Machine Learning</h3>
+                        <p class="text-gray-600 mb-4">Dive into artificial intelligence and build intelligent applications with Python.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-gray-500">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span class="text-sm">60 hours</span>
+                            </div>
+                            <div class="text-2xl font-bold text-mint-green">$149</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+                    <div class="h-48 bg-gradient-to-r from-dark-green to-mint-green flex items-center justify-center">
+                        <i class="fas fa-mobile-alt text-white text-6xl group-hover:scale-110 transition-transform duration-300"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-dark-green text-white px-3 py-1 rounded-full text-sm font-medium">Advanced</span>
+                            <div class="flex items-center text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <span class="ml-1 text-gray-600">4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Mobile App Development</h3>
+                        <p class="text-gray-600 mb-4">Create native mobile apps for iOS and Android using React Native and Flutter.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-gray-500">
+                                <i class="fas fa-clock mr-1"></i>
+                                <span class="text-sm">50 hours</span>
+                            </div>
+                            <div class="text-2xl font-bold text-mint-green">$129</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <button class="bg-gradient-to-r from-mint-green to-green-teal text-white px-8 py-3 rounded-full font-semibold hover:from-green-teal hover:to-dark-green transition-all duration-300 shadow-lg hover:shadow-xl">
+                    View All Courses
+                </button>
+            </div>
+        </div>
+    </section>
+
+  
+
+   
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-mint-green to-green-teal">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-white mb-6">Ready to Transform Your Career?</h2>
+            <p class="text-xl text-green-100 mb-8">Join over 100,000 students who have already started their learning journey with SmartTutor</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="showRegister()" class="bg-white text-green-teal px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    Start Your Free Trial
+                </button>
+                <button class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-green-teal transition-all duration-300">
+                    Schedule a Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-graduation-cap text-3xl text-mint-green mr-2"></i>
+                        <h3 class="text-2xl font-bold">SmartTutor</h3>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">Empowering learners worldwide with AI-driven education and personalized learning experiences.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-mint-green transition-colors">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-mint-green transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-mint-green transition-colors">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-mint-green transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Courses</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Instructors</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Refund Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-mint-green transition-colors">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 SmartTutor. All rights reserved. Made with ❤️ for learners worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-2xl rounded-2xl bg-white">
+            <div class="mt-3">
+                <!-- Login Form -->
+                <div id="loginForm" class="hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Welcome Back</h3>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all" placeholder="Enter your email">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all" placeholder="Enter your password">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input type="checkbox" class="h-4 w-4 text-mint-green focus:ring-mint-green border-gray-300 rounded">
+                                <label class="ml-2 block text-sm text-gray-900">Remember me</label>
+                            </div>
+                            <a href="#" class="text-sm text-mint-green hover:text-green-teal transition-colors">Forgot password?</a>
+                        </div>
+                        <button type="button" onclick="handleLogin()" class="w-full bg-gradient-to-r from-mint-green to-green-teal text-white py-3 rounded-lg font-semibold hover:from-green-teal hover:to-dark-green transition-all duration-300 shadow-lg hover:shadow-xl">
+                            Sign In
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6">
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-2 gap-3">
+                            <button class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                                <i class="fab fa-google text-red-500 mr-2"></i>
+                                Google
+                            </button>
+                            <button class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                                <i class="fab fa-github mr-2"></i>
+                                GitHub
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-6 text-center text-sm text-gray-600">
+                        Don't have an account?
+                        <button onclick="showRegister()" class="font-medium text-mint-green hover:text-green-teal transition-colors">Sign up for free</button>
+                    </p>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" class="hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900">Join SmartTutor</h3>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <form class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all" placeholder="John">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all" placeholder="Doe">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">I want to</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all">
+                                <option value="student">Learn new skills (Student)</option>
+                                <option value="instructor">Teach and share knowledge (Instructor)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all" placeholder="Create a strong password">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                            <input type="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-green focus:border-transparent transition-all" placeholder="Confirm your password">
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" class="h-4 w-4 text-mint-green focus:ring-mint-green border-gray-300 rounded">
+                            <label class="ml-2 block text-sm text-gray-900">
+                                I agree to the <a href="#" class="text-mint-green hover:text-green-teal transition-colors">Terms of Service</a> and <a href="#" class="text-mint-green hover:text-green-teal transition-colors">Privacy Policy</a>
+                            </label>
+                        </div>
+                        <button type="button" onclick="handleRegister()" class="w-full bg-gradient-to-r from-mint-green to-green-teal text-white py-3 rounded-lg font-semibold hover:from-green-teal hover:to-dark-green transition-all duration-300 shadow-lg hover:shadow-xl">
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6">
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-300"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-2 bg-white text-gray-500">Or sign up with</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-2 gap-3">
+                            <button class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                                <i class="fab fa-google text-red-500 mr-2"></i>
+                                Google
+                            </button>
+                            <button class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors">
+                                <i class="fab fa-github mr-2"></i>
+                                GitHub
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-6 text-center text-sm text-gray-600">
+                        Already have an account?
+                        <button onclick="showLogin()" class="font-medium text-mint-green hover:text-green-teal transition-colors">Sign in</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+        }
+
+        function showRegister() {
+            document.getElementById('authModal').classList.remove('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('authModal').classList.add('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+        }
+
+        function handleLogin() {
+            // Simulate login - redirect to student dashboard
+            window.location.href = 'student/dashboard.html';
+        }
+
+        function handleRegister() {
+            // Simulate registration - redirect to student dashboard
+            window.location.href = 'student/dashboard.html';
+        }
+
+        // Enrollment function that follows the same payment process
+        function enrollInCourse(courseName, price) {
+            // Store course details in localStorage
+            const courseDetails = {
+                name: courseName,
+                price: price,
+                enrollmentDate: new Date().toISOString()
+            };
+            localStorage.setItem('selectedCourse', JSON.stringify(courseDetails));
+            
+            // Redirect to payment page
+            window.location.href = 'student/payments.html';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

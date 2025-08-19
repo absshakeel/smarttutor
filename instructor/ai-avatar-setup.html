@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Avatar Setup - SmartTutor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#10B981',
+                        secondary: '#059669'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-graduation-cap text-2xl text-primary mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">SmartTutor</span>
+                        <span class="ml-2 px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">Instructor</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <button class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" onclick="toggleDropdown()">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                            <span class="ml-2 text-gray-700">Dr. Sarah Wilson</span>
+                            <i class="fas fa-chevron-down ml-1 text-gray-400"></i>
+                        </button>
+                        <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="../index.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex h-screen bg-gray-50">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-sm">
+            <div class="p-6">
+                <nav class="space-y-2">
+                    <a href="dashboard.html" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-tachometer-alt mr-3"></i>
+                        Dashboard
+                    </a>
+                    <a href="course-creation.html" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-plus-circle mr-3"></i>
+                        Create Course
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-book mr-3"></i>
+                        My Courses
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-users mr-3"></i>
+                        Students
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-dollar-sign mr-3"></i>
+                        Earnings
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-chart-bar mr-3"></i>
+                        Analytics
+                    </a>
+                    <a href="ai-avatar-setup.html" class="flex items-center px-4 py-2 text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg">
+                        <i class="fas fa-robot mr-3"></i>
+                        AI Avatar Setup
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-star mr-3"></i>
+                        Reviews
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-100">
+                        <i class="fas fa-cog mr-3"></i>
+                        Settings
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <div class="p-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">AI Avatar Setup</h1>
+                    <p class="text-gray-600">Create and train your AI avatar to generate personalized course content</p>
+                </div>
+
+                <!-- Avatar Status Card -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-gray-900">Avatar Status</h2>
+                        <div id="avatarStatus" class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium">
+                            <i class="fas fa-clock mr-1"></i>
+                            Training in Progress
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Avatar Preview -->
+                        <div class="text-center">
+                            <div class="w-48 h-48 mx-auto bg-gradient-to-br from-purple-400 to-blue-500 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-user text-6xl text-white"></i>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Dr. Sarah Wilson AI</h3>
+                            <p class="text-gray-600 text-sm">Your AI avatar will appear here once training is complete</p>
+                        </div>
+                        
+                        <!-- Training Progress -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Training Progress</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                        <span>Voice Training</span>
+                                        <span>75%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-purple-600 h-2 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                        <span>Facial Recognition</span>
+                                        <span>60%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                        <span>Personality Model</span>
+                                        <span>90%</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-600 h-2 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                                    <span class="text-blue-800 text-sm">Estimated completion: 2 hours remaining</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training Data Upload -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Video Upload -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Video Training Data</h2>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-purple-400 transition-colors">
+                            <i class="fas fa-video text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-600 mb-4">Upload videos of yourself teaching or speaking</p>
+                            <input type="file" id="videoUpload" class="hidden" accept="video/*" multiple onchange="handleVideoUpload(event)">
+                            <button onclick="document.getElementById('videoUpload').click()" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">
+                                <i class="fas fa-upload mr-2"></i>
+                                Upload Videos
+                            </button>
+                        </div>
+                        <div id="videoList" class="mt-4 space-y-2">
+                            <!-- Uploaded videos will appear here -->
+                        </div>
+                    </div>
+
+                    <!-- Audio Upload -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Audio Training Data</h2>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+                            <i class="fas fa-microphone text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-600 mb-4">Upload audio recordings of your voice</p>
+                            <input type="file" id="audioUpload" class="hidden" accept="audio/*" multiple onchange="handleAudioUpload(event)">
+                            <button onclick="document.getElementById('audioUpload').click()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                <i class="fas fa-upload mr-2"></i>
+                                Upload Audio
+                            </button>
+                        </div>
+                        <div id="audioList" class="mt-4 space-y-2">
+                            <!-- Uploaded audio files will appear here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avatar Configuration -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Avatar Configuration</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Personality Settings -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Personality & Teaching Style</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Teaching Style</label>
+                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option>Friendly & Encouraging</option>
+                                        <option>Professional & Direct</option>
+                                        <option>Casual & Conversational</option>
+                                        <option>Formal & Academic</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Energy Level</label>
+                                    <input type="range" min="1" max="10" value="7" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                        <span>Calm</span>
+                                        <span>Energetic</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Explanation Style</label>
+                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option>Detailed & Comprehensive</option>
+                                        <option>Concise & To-the-point</option>
+                                        <option>Example-heavy</option>
+                                        <option>Interactive & Question-based</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Voice Settings -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Voice Configuration</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Speaking Speed</label>
+                                    <input type="range" min="0.5" max="2" step="0.1" value="1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                        <span>Slow</span>
+                                        <span>Normal</span>
+                                        <span>Fast</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Voice Tone</label>
+                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option>Warm & Friendly</option>
+                                        <option>Professional & Clear</option>
+                                        <option>Enthusiastic & Upbeat</option>
+                                        <option>Calm & Soothing</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Accent/Language</label>
+                                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                        <option>American English</option>
+                                        <option>British English</option>
+                                        <option>Australian English</option>
+                                        <option>Canadian English</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training History -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Training History</h2>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 15, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Voice Training</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2h 30m</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                            In Progress
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-purple-600 hover:text-purple-900">View Details</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 14, 2024</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Facial Recognition</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1h 45m</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Completed
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-purple-600 hover:text-purple-900">View Details</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-between items-center">
+                    <div class="flex space-x-4">
+                        <button onclick="startTraining()" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 flex items-center">
+                            <i class="fas fa-play mr-2"></i>
+                            Start Training
+                        </button>
+                        <button onclick="pauseTraining()" class="px-6 py-3 bg-yellow-600 text-white rounded-lg font-medium hover:bg-yellow-700 flex items-center">
+                            <i class="fas fa-pause mr-2"></i>
+                            Pause Training
+                        </button>
+                        <button onclick="resetAvatar()" class="px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 flex items-center">
+                            <i class="fas fa-redo mr-2"></i>
+                            Reset Avatar
+                        </button>
+                    </div>
+                    <button onclick="testAvatar()" class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 flex items-center">
+                        <i class="fas fa-test-tube mr-2"></i>
+                        Test Avatar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Test Avatar Modal -->
+    <div id="testModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-semibold text-gray-900">Test Your AI Avatar</h3>
+                <button onclick="closeTestModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Test Script</label>
+                <textarea id="testScript" rows="4" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter text for your avatar to speak...">Hello! Welcome to my course. Today we'll be learning about advanced JavaScript concepts. Let's start with understanding closures and how they work in practice.</textarea>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div class="flex space-x-3">
+                    <button onclick="generateAvatarVideo()" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 flex items-center">
+                        <i class="fas fa-video mr-2"></i>
+                        Generate Video
+                    </button>
+                    <button onclick="generateAvatarAudio()" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center">
+                        <i class="fas fa-volume-up mr-2"></i>
+                        Generate Audio
+                    </button>
+                </div>
+                <button onclick="closeTestModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">
+                    Close
+                </button>
+            </div>
+            
+            <div id="testResults" class="mt-6 hidden">
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <p class="text-sm text-gray-600 mb-2">Generated content will appear here...</p>
+                    <div class="w-full bg-gray-300 rounded h-48 flex items-center justify-center">
+                        <i class="fas fa-play-circle text-4xl text-gray-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dropdown functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdown');
+            const button = event.target.closest('button');
+            if (!button || !button.onclick) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // File upload handlers
+        function handleVideoUpload(event) {
+            const files = event.target.files;
+            const videoList = document.getElementById('videoList');
+            
+            for (let file of files) {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between p-3 bg-purple-50 rounded-lg';
+                fileItem.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-video text-purple-600 mr-3"></i>
+                        <span class="text-sm text-gray-700">${file.name}</span>
+                    </div>
+                    <button onclick="removeFile(this)" class="text-red-600 hover:text-red-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                videoList.appendChild(fileItem);
+            }
+        }
+
+        function handleAudioUpload(event) {
+            const files = event.target.files;
+            const audioList = document.getElementById('audioList');
+            
+            for (let file of files) {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'flex items-center justify-between p-3 bg-blue-50 rounded-lg';
+                fileItem.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-microphone text-blue-600 mr-3"></i>
+                        <span class="text-sm text-gray-700">${file.name}</span>
+                    </div>
+                    <button onclick="removeFile(this)" class="text-red-600 hover:text-red-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                audioList.appendChild(fileItem);
+            }
+        }
+
+        function removeFile(button) {
+            button.closest('div').remove();
+        }
+
+        // Training functions
+        function startTraining() {
+            alert('Training started! Your AI avatar will begin processing the uploaded data.');
+            // Update status
+            const status = document.getElementById('avatarStatus');
+            status.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i>Training in Progress';
+            status.className = 'px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium';
+        }
+
+        function pauseTraining() {
+            alert('Training paused. You can resume anytime.');
+            const status = document.getElementById('avatarStatus');
+            status.innerHTML = '<i class="fas fa-pause mr-1"></i>Training Paused';
+            status.className = 'px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-medium';
+        }
+
+        function resetAvatar() {
+            if (confirm('Are you sure you want to reset your avatar? This will delete all training progress.')) {
+                alert('Avatar reset successfully. You can start training from scratch.');
+                const status = document.getElementById('avatarStatus');
+                status.innerHTML = '<i class="fas fa-exclamation-circle mr-1"></i>Not Trained';
+                status.className = 'px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium';
+            }
+        }
+
+        // Test avatar functions
+        function testAvatar() {
+            document.getElementById('testModal').classList.remove('hidden');
+        }
+
+        function closeTestModal() {
+            document.getElementById('testModal').classList.add('hidden');
+            document.getElementById('testResults').classList.add('hidden');
+        }
+
+        function generateAvatarVideo() {
+            const script = document.getElementById('testScript').value;
+            if (!script.trim()) {
+                alert('Please enter a test script first.');
+                return;
+            }
+            
+            alert('Generating avatar video... This may take a few minutes.');
+            document.getElementById('testResults').classList.remove('hidden');
+        }
+
+        function generateAvatarAudio() {
+            const script = document.getElementById('testScript').value;
+            if (!script.trim()) {
+                alert('Please enter a test script first.');
+                return;
+            }
+            
+            alert('Generating avatar audio... This will be ready shortly.');
+            document.getElementById('testResults').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

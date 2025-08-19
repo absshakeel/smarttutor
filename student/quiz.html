@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - SmartTutor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#10b981',
+                        accent: '#34d399'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center">
+                        <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-sm"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-gray-900">SmartTutor</span>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-6">
+                        <a href="dashboard.html" class="text-gray-600 hover:text-primary transition-colors">
+                            <i class="fas fa-home mr-2"></i>Dashboard
+                        </a>
+                        <a href="catalog.html" class="text-gray-600 hover:text-primary transition-colors">
+                            <i class="fas fa-book mr-2"></i>Courses
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <button class="p-2 text-gray-600 hover:text-primary transition-colors">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-medium">JS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-16 min-h-screen">
+        <!-- Quiz Header -->
+        <div class="bg-white border-b border-gray-200">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">JavaScript Fundamentals Quiz</h1>
+                        <p class="text-gray-600 mt-1">Test your knowledge of JavaScript basics</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-gray-500">Question</div>
+                        <div class="text-lg font-semibold text-gray-900">
+                            <span id="current-question">1</span> of <span id="total-questions">10</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="mt-4">
+                    <div class="flex justify-between text-sm text-gray-600 mb-2">
+                        <span>Progress</span>
+                        <span id="progress-text">10%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="progress-bar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Quiz Content -->
+                <div class="lg:col-span-3">
+                    <!-- Timer Card -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-clock text-red-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">Time Remaining</h3>
+                                    <p class="text-gray-600">Complete within the time limit</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div id="timer" class="text-3xl font-bold text-red-600">15:00</div>
+                                <div class="text-sm text-gray-500">minutes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+                        <div id="question-container">
+                            <div class="mb-6">
+                                <h2 class="text-xl font-semibold text-gray-900 mb-4">What is the correct way to declare a variable in JavaScript?</h2>
+                                <div class="text-sm text-gray-500 mb-6">
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Multiple Choice</span>
+                                    <span class="ml-2">Select one answer</span>
+                                </div>
+                            </div>
+
+                            <!-- Answer Options -->
+                            <div class="space-y-4">
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 cursor-pointer transition-all">
+                                    <input type="radio" name="answer" value="a" class="mt-1 text-primary focus:ring-primary">
+                                    <div class="ml-3">
+                                        <div class="font-medium text-gray-900">A. variable myVar = 5;</div>
+                                        <div class="text-gray-600 text-sm mt-1">Using the 'variable' keyword</div>
+                                    </div>
+                                </label>
+
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 cursor-pointer transition-all">
+                                    <input type="radio" name="answer" value="b" class="mt-1 text-primary focus:ring-primary">
+                                    <div class="ml-3">
+                                        <div class="font-medium text-gray-900">B. var myVar = 5;</div>
+                                        <div class="text-gray-600 text-sm mt-1">Using the 'var' keyword</div>
+                                    </div>
+                                </label>
+
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 cursor-pointer transition-all">
+                                    <input type="radio" name="answer" value="c" class="mt-1 text-primary focus:ring-primary">
+                                    <div class="ml-3">
+                                        <div class="font-medium text-gray-900">C. let myVar = 5;</div>
+                                        <div class="text-gray-600 text-sm mt-1">Using the 'let' keyword</div>
+                                    </div>
+                                </label>
+
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 cursor-pointer transition-all">
+                                    <input type="radio" name="answer" value="d" class="mt-1 text-primary focus:ring-primary">
+                                    <div class="ml-3">
+                                        <div class="font-medium text-gray-900">D. Both B and C are correct</div>
+                                        <div class="text-gray-600 text-sm mt-1">Multiple valid approaches</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- Code Example (if applicable) -->
+                            <div class="mt-6 p-4 bg-gray-900 rounded-lg">
+                                <div class="text-sm text-gray-400 mb-2">Code Example:</div>
+                                <pre class="text-green-400 text-sm"><code>// Which of these is valid JavaScript?
+var name = "John";
+let age = 25;
+const city = "New York";</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
+                            <button id="prev-btn" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors" disabled>
+                                <i class="fas fa-chevron-left mr-2"></i>Previous
+                            </button>
+                            
+                            <div class="flex space-x-3">
+                                <button class="px-4 py-2 text-gray-600 hover:text-primary transition-colors">
+                                    <i class="fas fa-flag mr-2"></i>Flag for Review
+                                </button>
+                                <button id="next-btn" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                                    Next<i class="fas fa-chevron-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <!-- Quiz Navigation -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Question Navigator</h3>
+                        <div class="grid grid-cols-5 gap-2">
+                            <button class="w-10 h-10 bg-primary text-white rounded-lg text-sm font-medium">1</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">2</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">3</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">4</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">5</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">6</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">7</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">8</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">9</button>
+                            <button class="w-10 h-10 border border-gray-300 text-gray-700 rounded-lg text-sm hover:border-primary hover:text-primary transition-colors">10</button>
+                        </div>
+                        
+                        <div class="mt-4 space-y-2 text-sm">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-primary rounded mr-2"></div>
+                                <span class="text-gray-600">Current</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                                <span class="text-gray-600">Answered</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
+                                <span class="text-gray-600">Flagged</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Stats -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quiz Statistics</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Answered</span>
+                                <span class="font-medium text-gray-900">1/10</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Flagged</span>
+                                <span class="font-medium text-gray-900">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Remaining</span>
+                                <span class="font-medium text-gray-900">9</span>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full mt-6 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                            <i class="fas fa-paper-plane mr-2"></i>Submit Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Confirmation Modal -->
+    <div id="submit-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md mx-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Submit Quiz?</h3>
+                <p class="text-gray-600 mb-6">You have answered 1 out of 10 questions. Are you sure you want to submit?</p>
+                <div class="flex space-x-3">
+                    <button onclick="closeSubmitModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                        Continue Quiz
+                    </button>
+                    <button onclick="submitQuiz()" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                        Submit Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Timer functionality
+        let timeLeft = 15 * 60; // 15 minutes in seconds
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                submitQuiz();
+                return;
+            }
+            
+            timeLeft--;
+        }
+        
+        // Start timer
+        setInterval(updateTimer, 1000);
+        
+        // Quiz navigation
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+        
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = Math.round(progress) + '%';
+            document.getElementById('current-question').textContent = currentQuestion;
+        }
+        
+        // Navigation buttons
+        document.getElementById('next-btn').addEventListener('click', function() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                updateProgress();
+                // Load next question (placeholder)
+                console.log('Loading question', currentQuestion);
+            }
+        });
+        
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                updateProgress();
+                // Load previous question (placeholder)
+                console.log('Loading question', currentQuestion);
+            }
+        });
+        
+        // Submit modal functions
+        function showSubmitModal() {
+            document.getElementById('submit-modal').classList.remove('hidden');
+            document.getElementById('submit-modal').classList.add('flex');
+        }
+        
+        function closeSubmitModal() {
+            document.getElementById('submit-modal').classList.add('hidden');
+            document.getElementById('submit-modal').classList.remove('flex');
+        }
+        
+        function submitQuiz() {
+            alert('Quiz submitted! Redirecting to results...');
+            // Redirect to results page or dashboard
+            window.location.href = 'dashboard.html';
+        }
+        
+        // Add submit button event listener
+        document.querySelector('button[onclick="submitQuiz()"]').addEventListener('click', showSubmitModal);
+    </script>
+</body>
+</html>

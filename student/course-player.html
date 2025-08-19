@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Player - SmartTutor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#059669',
+                        secondary: '#10b981',
+                        accent: '#34d399'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="catalog.html" class="mr-4 p-2 rounded-full hover:bg-gray-100">
+                            <i class="fas fa-arrow-left text-gray-600"></i>
+                        </a>
+                        <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-sm"></i>
+                        </div>
+                        <span class="ml-2 text-xl font-bold text-gray-900">SmartTutor</span>
+                    </div>
+                </div>
+                
+                <!-- Course Progress -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2">
+                        <span class="text-sm text-gray-600">Progress:</span>
+                        <div class="w-32 bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <span class="text-sm font-medium text-gray-900">65%</span>
+                    </div>
+                </div>
+                
+                <!-- Profile Dropdown -->
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-primary" onclick="toggleDropdown()">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Profile">
+                            <span class="text-gray-700 font-medium">John Doe</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </button>
+                        <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="../index.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex pt-16 h-screen">
+        <!-- Course Sidebar -->
+        <div class="w-80 bg-white shadow-lg border-r border-gray-200 flex flex-col">
+            <!-- Course Header -->
+            <div class="p-6 border-b border-gray-200">
+                <h1 class="text-lg font-semibold text-gray-900 mb-2">Complete JavaScript Course 2024</h1>
+                <p class="text-sm text-gray-600 mb-4">From Zero to Expert!</p>
+                <div class="flex items-center space-x-4 text-sm text-gray-600">
+                    <span><i class="fas fa-clock mr-1"></i> 52h total</span>
+                    <span><i class="fas fa-play-circle mr-1"></i> 319 lectures</span>
+                </div>
+            </div>
+            
+            <!-- Course Content -->
+            <div class="flex-1 overflow-y-auto">
+                <!-- Section 1 -->
+                <div class="border-b border-gray-200">
+                    <button class="w-full px-6 py-4 text-left hover:bg-gray-50 focus:outline-none" onclick="toggleSection('section1')">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium text-gray-900">1. Course Introduction</h3>
+                                <p class="text-sm text-gray-600">3 lectures • 12min</p>
+                            </div>
+                            <i id="section1-icon" class="fas fa-chevron-down text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="section1" class="bg-gray-50">
+                        <div class="px-6 py-2 border-l-4 border-primary bg-primary/10 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-play-circle text-primary mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Welcome to the Course</p>
+                                    <p class="text-xs text-gray-600">4:32</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-check-circle text-primary"></i>
+                        </div>
+                        <div class="px-6 py-2 hover:bg-gray-100 cursor-pointer flex items-center justify-between" onclick="loadLesson('Course Structure', '3:45')">
+                            <div class="flex items-center">
+                                <i class="fas fa-play-circle text-gray-400 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Course Structure</p>
+                                    <p class="text-xs text-gray-600">3:45</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-6 py-2 hover:bg-gray-100 cursor-pointer flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-alt text-gray-400 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Course Resources</p>
+                                    <p class="text-xs text-gray-600">Reading</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Section 2 -->
+                <div class="border-b border-gray-200">
+                    <button class="w-full px-6 py-4 text-left hover:bg-gray-50 focus:outline-none" onclick="toggleSection('section2')">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium text-gray-900">2. JavaScript Fundamentals</h3>
+                                <p class="text-sm text-gray-600">15 lectures • 2h 45min</p>
+                            </div>
+                            <i id="section2-icon" class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </button>
+                    <div id="section2" class="hidden bg-gray-50">
+                        <div class="px-6 py-2 hover:bg-gray-100 cursor-pointer flex items-center justify-between" onclick="loadLesson('Variables and Data Types', '12:30')">
+                            <div class="flex items-center">
+                                <i class="fas fa-play-circle text-gray-400 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Variables and Data Types</p>
+                                    <p class="text-xs text-gray-600">12:30</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-6 py-2 hover:bg-gray-100 cursor-pointer flex items-center justify-between" onclick="loadLesson('Functions', '18:45')">
+                            <div class="flex items-center">
+                                <i class="fas fa-play-circle text-gray-400 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Functions</p>
+                                    <p class="text-xs text-gray-600">18:45</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-6 py-2 hover:bg-gray-100 cursor-pointer flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-question-circle text-gray-400 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">Quiz: Fundamentals</p>
+                                    <p class="text-xs text-gray-600">5 questions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More sections... -->
+                <div class="border-b border-gray-200">
+                    <button class="w-full px-6 py-4 text-left hover:bg-gray-50 focus:outline-none">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-medium text-gray-900">3. DOM Manipulation</h3>
+                                <p class="text-sm text-gray-600">12 lectures • 2h 15min</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col">
+            <!-- Video Player -->
+            <div class="bg-black relative" style="height: 60vh;">
+                <!-- Real Video Element -->
+                <video id="courseVideo" class="w-full h-full" controls controlsList="nodownload" oncontextmenu="return false;">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                
+                <!-- Ask Question Overlay -->
+                <div id="questionOverlay" class="absolute inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center z-10">
+                    <div class="bg-white rounded-lg p-6 max-w-md mx-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Ask a Question</h3>
+                        <p class="text-sm text-gray-600 mb-4">Video paused at <span id="pauseTime">0:00</span></p>
+                        <textarea id="questionText" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" rows="3" placeholder="What would you like to know about this part of the lesson?"></textarea>
+                        <div class="flex space-x-3 mt-4">
+                            <button onclick="closeQuestionOverlay()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                Cancel
+                            </button>
+                            <button onclick="submitQuestion()" class="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                                Ask AI Tutor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Custom Video Controls Overlay -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                    <div class="flex items-center space-x-4">
+                        <button id="playPauseBtn" onclick="togglePlayPause()" class="text-white hover:text-primary transition-colors">
+                            <i id="playPauseIcon" class="fas fa-play text-lg"></i>
+                        </button>
+                        <button onclick="showQuestionOverlay()" class="text-white hover:text-primary transition-colors" title="Ask question about current time">
+                            <i class="fas fa-question-circle text-lg"></i>
+                        </button>
+                        <div class="flex-1 flex items-center space-x-2">
+                            <span id="currentTime" class="text-white text-sm">0:00</span>
+                            <div class="flex-1 bg-gray-600 rounded-full h-1 cursor-pointer" onclick="seekVideo(event)">
+                                <div id="progressBar" class="bg-primary h-1 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <span id="duration" class="text-white text-sm">0:00</span>
+                        </div>
+                        <button onclick="toggleMute()" class="text-white hover:text-primary transition-colors">
+                            <i id="muteIcon" class="fas fa-volume-up text-lg"></i>
+                        </button>
+                        <button onclick="toggleFullscreen()" class="text-white hover:text-primary transition-colors">
+                            <i class="fas fa-expand text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Tabs -->
+            <div class="bg-white border-b border-gray-200">
+                <nav class="flex space-x-8 px-6">
+                    <button class="border-primary text-primary whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" onclick="switchTab('overview')">
+                        Overview
+                    </button>
+                    <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" onclick="switchTab('notes')">
+                        Notes
+                    </button>
+                    <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" onclick="switchTab('qa')">
+                        Q&A
+                    </button>
+                    <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" onclick="switchTab('resources')">
+                        Resources
+                    </button>
+                </nav>
+            </div>
+            
+            <!-- Tab Content -->
+            <div class="flex-1 flex">
+                <!-- Main Content -->
+                <div class="flex-1 p-6 overflow-y-auto">
+                    <div id="overview-content">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Lesson Overview</h2>
+                        <div class="prose max-w-none">
+                            <p class="text-gray-700 mb-4">
+                                Welcome to the Complete JavaScript Course! In this introductory lesson, we'll cover what you can expect from this comprehensive course and how to get the most out of your learning experience.
+                            </p>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">What You'll Learn:</h3>
+                            <ul class="list-disc list-inside text-gray-700 mb-4 space-y-2">
+                                <li>Course structure and learning path</li>
+                                <li>Setting up your development environment</li>
+                                <li>Best practices for following along</li>
+                                <li>How to access course resources</li>
+                            </ul>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Key Takeaways:</h3>
+                            <div class="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-4">
+                                <ul class="list-disc list-inside text-primary space-y-1">
+                                    <li>This course follows a project-based approach</li>
+                                    <li>Practice coding along with every lesson</li>
+                                    <li>Don't hesitate to ask questions in the Q&A section</li>
+                                    <li>Use the AI tutor for instant help</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="notes-content" class="hidden">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">My Notes</h2>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                            <p class="text-sm text-yellow-800">💡 Tip: Take notes while watching to reinforce your learning!</p>
+                        </div>
+                        <textarea class="w-full h-64 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Write your notes here..."></textarea>
+                        <button class="mt-4 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+                            Save Notes
+                        </button>
+                    </div>
+                    
+                    <div id="qa-content" class="hidden">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Questions & Answers</h2>
+                        <div id="qaList" class="space-y-4">
+                            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-start space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=40&h=40&q=80" alt="User" class="w-8 h-8 rounded-full">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="font-medium text-gray-900">Sarah M.</span>
+                                            <span class="text-xs text-gray-500">2 hours ago</span>
+                                        </div>
+                                        <p class="text-gray-700 mb-2">What's the best way to practice the concepts from this lesson?</p>
+                                        <div class="flex items-center space-x-4 text-sm text-gray-500">
+                                            <button class="hover:text-primary"><i class="fas fa-thumbs-up mr-1"></i>5</button>
+                                            <button class="hover:text-primary">Reply</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ml-11 mt-3 bg-gray-50 rounded-lg p-3">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <span class="font-medium text-gray-900">Instructor</span>
+                                        <span class="bg-primary/20 text-primary text-xs px-2 py-1 rounded">Instructor</span>
+                                        <span class="text-xs text-gray-500">1 hour ago</span>
+                                    </div>
+                                    <p class="text-gray-700">Great question! I recommend coding along with each lesson and then trying to recreate the examples from memory. Practice is key!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <textarea class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" rows="3" placeholder="Ask a question..."></textarea>
+                            <button class="mt-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90">
+                                Post Question
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="resources-content" class="hidden">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Lesson Resources</h2>
+                        <div class="space-y-4">
+                            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-file-code text-blue-600 text-xl"></i>
+                                    <div>
+                                        <h3 class="font-medium text-gray-900">Starter Code</h3>
+                                        <p class="text-sm text-gray-600">HTML and CSS files to get started</p>
+                                    </div>
+                                    <button class="ml-auto px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700">
+                                        Download
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center space-x-3">
+                                    <i class="fas fa-link text-green-600 text-xl"></i>
+                                    <div>
+                                        <h3 class="font-medium text-gray-900">MDN Documentation</h3>
+                                        <p class="text-sm text-gray-600">JavaScript reference and guides</p>
+                                    </div>
+                                    <button class="ml-auto px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700">
+                                        Visit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AI Chat Panel -->
+                <div class="w-80 bg-white border-l border-gray-200 flex flex-col">
+                    <div class="p-4 border-b border-gray-200">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                                <i class="fas fa-robot text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium text-gray-900">AI Tutor</h3>
+                                <p class="text-xs text-gray-600">Ask me anything about this lesson</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-4">
+                        <div class="flex items-start space-x-2">
+                            <div class="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-robot text-white text-xs"></i>
+                            </div>
+                            <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+                                <p class="text-sm text-gray-800">Hi! I'm your AI tutor. I can help you understand the concepts in this lesson. What would you like to know?</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="p-4 border-t border-gray-200">
+                        <div class="flex space-x-2">
+                            <input type="text" id="chatInput" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Ask a question...">
+                            <button onclick="sendMessage()" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex flex-wrap gap-2">
+                            <button class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded hover:bg-gray-200" onclick="quickQuestion('What is a variable?')">
+                                What is a variable?
+                            </button>
+                            <button class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded hover:bg-gray-200" onclick="quickQuestion('Explain functions')">
+                                Explain functions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('courseVideo');
+        let isPlaying = false;
+        
+        // Video event listeners
+        video.addEventListener('loadedmetadata', function() {
+            document.getElementById('duration').textContent = formatTime(video.duration);
+        });
+        
+        video.addEventListener('timeupdate', function() {
+            const progress = (video.currentTime / video.duration) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('currentTime').textContent = formatTime(video.currentTime);
+        });
+        
+        video.addEventListener('play', function() {
+            isPlaying = true;
+            document.getElementById('playPauseIcon').className = 'fas fa-pause text-lg';
+        });
+        
+        video.addEventListener('pause', function() {
+            isPlaying = false;
+            document.getElementById('playPauseIcon').className = 'fas fa-play text-lg';
+        });
+        
+        // Video control functions
+        function togglePlayPause() {
+            if (isPlaying) {
+                video.pause();
+            } else {
+                video.play();
+            }
+        }
+        
+        function toggleMute() {
+            video.muted = !video.muted;
+            const muteIcon = document.getElementById('muteIcon');
+            muteIcon.className = video.muted ? 'fas fa-volume-mute text-lg' : 'fas fa-volume-up text-lg';
+        }
+        
+        function toggleFullscreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+        
+        function seekVideo(event) {
+            const progressBar = event.currentTarget;
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (event.clientX - rect.left) / rect.width;
+            video.currentTime = pos * video.duration;
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // Question overlay functions
+        function showQuestionOverlay() {
+            video.pause();
+            document.getElementById('pauseTime').textContent = formatTime(video.currentTime);
+            document.getElementById('questionOverlay').classList.remove('hidden');
+            document.getElementById('questionOverlay').classList.add('flex');
+        }
+        
+        function closeQuestionOverlay() {
+            document.getElementById('questionOverlay').classList.add('hidden');
+            document.getElementById('questionOverlay').classList.remove('flex');
+            document.getElementById('questionText').value = '';
+        }
+        
+        function submitQuestion() {
+            const questionText = document.getElementById('questionText').value.trim();
+            if (questionText) {
+                const timeStamp = formatTime(video.currentTime);
+                const fullQuestion = `At ${timeStamp}: ${questionText}`;
+                addMessageToChat(fullQuestion, 'user');
+                
+                // Simulate AI response
+                setTimeout(() => {
+                    const response = `Great question about the content at ${timeStamp}! Let me explain that concept in detail...`;
+                    addMessageToChat(response, 'ai');
+                }, 1000);
+                
+                closeQuestionOverlay();
+                // Switch to Q&A tab to show the question
+                switchTab('qa');
+            }
+        }
+        
+        // Sidebar functions
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById(sectionId + '-icon');
+            
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+                icon.classList.remove('fa-chevron-right');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                section.classList.add('hidden');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-right');
+            }
+        }
+        
+        function loadLesson(title, duration) {
+            // Simulate loading a new lesson
+            console.log(`Loading lesson: ${title} (${duration})`);
+            // In a real app, this would load a new video source
+        }
+
+        function switchTab(tabName) {
+            // Hide all content
+            document.getElementById('overview-content').classList.add('hidden');
+            document.getElementById('notes-content').classList.add('hidden');
+            document.getElementById('qa-content').classList.add('hidden');
+            document.getElementById('resources-content').classList.add('hidden');
+            
+            // Show selected content
+            document.getElementById(tabName + '-content').classList.remove('hidden');
+            
+            // Update tab styles
+            const tabs = document.querySelectorAll('nav button');
+            tabs.forEach(tab => {
+                tab.className = 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm';
+            });
+            
+            event.target.className = 'border-primary text-primary whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm';
+        }
+
+        // Chat functions
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessageToChat(message, 'user');
+                input.value = '';
+                
+                // Simulate AI response
+                setTimeout(() => {
+                    const responses = [
+                        "That's a great question! Let me explain...",
+                        "I can help you with that concept.",
+                        "Here's what you need to know about that topic...",
+                        "Let me break that down for you."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessageToChat(randomResponse, 'ai');
+                }, 1000);
+            }
+        }
+
+        function quickQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        function addMessageToChat(message, sender) {
+            const chatContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start space-x-2 justify-end">
+                        <div class="bg-primary text-white rounded-lg p-3 max-w-xs">
+                            <p class="text-sm">${message}</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=24&h=24&q=80" alt="User" class="w-6 h-6 rounded-full flex-shrink-0">
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <div class="w-6 h-6 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-white text-xs"></i>
+                        </div>
+                        <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+                            <p class="text-sm text-gray-800">${message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Handle Enter key in chat input
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const button = event.target.closest('button');
+            
+            if (!button || !button.onclick) {
+                dropdown.classList.add('hidden');
+            }
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName.toLowerCase() !== 'input' && e.target.tagName.toLowerCase() !== 'textarea') {
+                switch(e.key) {
+                    case ' ': // Spacebar
+                        e.preventDefault();
+                        togglePlayPause();
+                        break;
+                    case 'q': // Q key for questions
+                        e.preventDefault();
+                        showQuestionOverlay();
+                        break;
+                    case 'm': // M key for mute
+                        e.preventDefault();
+                        toggleMute();
+                        break;
+                    case 'f': // F key for fullscreen
+                        e.preventDefault();
+                        toggleFullscreen();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

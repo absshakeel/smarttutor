@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - SmartTutor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'emerald': {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center">
+                        <i class="fas fa-graduation-cap text-2xl text-emerald-600 mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">SmartTutor</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="catalog.html" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Catalog
+                    </a>
+                    <div class="relative">
+                        <button onclick="toggleDropdown()" class="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Profile" class="w-8 h-8 rounded-full">
+                            <span class="text-sm font-medium">John Doe</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="dashboard.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <hr class="my-1">
+                            <a href="../index.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Progress Steps -->
+        <div class="mb-8">
+            <div class="flex items-center justify-center">
+                <div class="flex items-center">
+                    <div class="flex items-center text-emerald-600">
+                        <div class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-white text-sm"></i>
+                        </div>
+                        <span class="ml-2 text-sm font-medium">Course Selection</span>
+                    </div>
+                    <div class="w-16 h-0.5 bg-emerald-600 mx-4"></div>
+                    <div class="flex items-center text-emerald-600">
+                        <div class="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-bold">2</span>
+                        </div>
+                        <span class="ml-2 text-sm font-medium">Payment</span>
+                    </div>
+                    <div class="w-16 h-0.5 bg-gray-300 mx-4"></div>
+                    <div class="flex items-center text-gray-400">
+                        <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-bold">3</span>
+                        </div>
+                        <span class="ml-2 text-sm font-medium">Confirmation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Payment Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Payment Information</h2>
+                    
+                    <!-- Payment Methods -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Payment Method</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <label class="relative">
+                                <input type="radio" name="payment-method" value="card" class="sr-only" checked>
+                                <div class="border-2 border-emerald-500 bg-emerald-50 rounded-lg p-4 cursor-pointer hover:bg-emerald-100 transition-colors">
+                                    <div class="flex items-center justify-center">
+                                        <i class="fas fa-credit-card text-emerald-600 text-xl mb-2"></i>
+                                    </div>
+                                    <p class="text-center text-sm font-medium text-gray-900">Credit Card</p>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="payment-method" value="paypal" class="sr-only">
+                                <div class="border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <div class="flex items-center justify-center">
+                                        <i class="fab fa-paypal text-blue-600 text-xl mb-2"></i>
+                                    </div>
+                                    <p class="text-center text-sm font-medium text-gray-900">PayPal</p>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="payment-method" value="apple-pay" class="sr-only">
+                                <div class="border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors">
+                                    <div class="flex items-center justify-center">
+                                        <i class="fab fa-apple-pay text-gray-900 text-xl mb-2"></i>
+                                    </div>
+                                    <p class="text-center text-sm font-medium text-gray-900">Apple Pay</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Credit Card Form -->
+                    <div id="card-form" class="space-y-4">
+                        <div>
+                            <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                            <div class="relative">
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fab fa-cc-visa text-blue-600 text-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="expiry" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                                <input type="text" id="expiry" placeholder="MM/YY" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="cardholder-name" class="block text-sm font-medium text-gray-700 mb-1">Cardholder Name</label>
+                            <input type="text" id="cardholder-name" placeholder="John Doe" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                        </div>
+                    </div>
+
+                    <!-- Billing Address -->
+                    <div class="mt-8">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Billing Address</h3>
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                    <input type="text" id="first-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                </div>
+                                <div>
+                                    <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                    <input type="text" id="last-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                <input type="text" id="address" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                    <input type="text" id="city" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                </div>
+                                <div>
+                                    <label for="state" class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                    <select id="state" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                        <option value="">Select State</option>
+                                        <option value="CA">California</option>
+                                        <option value="NY">New York</option>
+                                        <option value="TX">Texas</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="zip" class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                                    <input type="text" id="zip" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-6">Order Summary</h2>
+                    
+                    <!-- Course Details -->
+                    <div id="course-details" class="mb-6">
+                        <!-- Course details will be populated by JavaScript -->
+                    </div>
+
+                    <!-- Coupon Code -->
+                    <div class="mb-6">
+                        <div class="flex">
+                            <input type="text" placeholder="Coupon code" class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 border border-l-0 border-gray-300 rounded-r-md hover:bg-gray-200 transition-colors">
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Price Breakdown -->
+                    <div class="space-y-3 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Subtotal</span>
+                            <span id="subtotal" class="text-gray-900">$89.99</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Tax</span>
+                            <span id="tax" class="text-gray-900">$7.20</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-green-600">
+                            <span>Discount</span>
+                            <span>-$10.00</span>
+                        </div>
+                        <hr class="my-3">
+                        <div class="flex justify-between text-lg font-semibold">
+                            <span class="text-gray-900">Total</span>
+                            <span id="total" class="text-gray-900">$87.19</span>
+                        </div>
+                    </div>
+
+                    <!-- Complete Payment Button -->
+                    <button onclick="processPayment()" class="w-full bg-emerald-600 text-white py-3 px-4 rounded-md hover:bg-emerald-700 transition-colors font-medium">
+                        <i class="fas fa-lock mr-2"></i>
+                        Complete Payment
+                    </button>
+
+                    <!-- Security Notice -->
+                    <div class="mt-4 text-center">
+                        <p class="text-xs text-gray-500">
+                            <i class="fas fa-shield-alt mr-1"></i>
+                            Your payment information is secure and encrypted
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment History Section -->
+        <div class="mt-12">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-6">Payment History</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <img class="h-10 w-10 rounded object-cover" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Course">
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">Python for Data Science</div>
+                                            <div class="text-sm text-gray-500">Jose Portilla</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 15, 2024</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$94.99</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                        Completed
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-emerald-600 hover:text-emerald-900">
+                                        <i class="fas fa-download mr-1"></i>Download
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <img class="h-10 w-10 rounded object-cover" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Course">
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">React Developer Course</div>
+                                            <div class="text-sm text-gray-500">Andrew Mead</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Nov 28, 2024</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$79.99</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                        Completed
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="text-emerald-600 hover:text-emerald-900">
+                                        <i class="fas fa-download mr-1"></i>Download
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Success Modal -->
+    <div id="paymentModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <i class="fas fa-check text-green-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mt-4">Payment Successful!</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">
+                        Your enrollment has been confirmed. You can now access your course.
+                    </p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button onclick="redirectToCourse()" class="px-4 py-2 bg-emerald-600 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        Go to Course
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load course details from localStorage
+        function loadCourseDetails() {
+            const selectedCourse = JSON.parse(localStorage.getItem('selectedCourse') || '{}');
+            
+            if (selectedCourse.name) {
+                const courseDetailsHTML = `
+                    <div class="flex items-start space-x-4">
+                        <img src="${selectedCourse.image || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80'}" alt="Course" class="w-16 h-16 rounded object-cover">
+                        <div class="flex-1">
+                            <h3 class="font-medium text-gray-900 text-sm">${selectedCourse.name}</h3>
+                            <p class="text-sm text-gray-500 mt-1">by ${selectedCourse.instructor || 'Instructor'}</p>
+                            <div class="flex items-center mt-2">
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="ml-1 text-xs text-gray-500">4.9</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-semibold text-gray-900">${selectedCourse.price || '$89.99'}</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('course-details').innerHTML = courseDetailsHTML;
+                
+                // Update price fields
+                const price = selectedCourse.price || '$89.99';
+                document.getElementById('subtotal').textContent = price;
+                
+                // Calculate tax and total
+                const priceNum = parseFloat(price.replace('$', ''));
+                const tax = (priceNum * 0.08).toFixed(2);
+                const total = (priceNum + parseFloat(tax) - 10).toFixed(2);
+                
+                document.getElementById('tax').textContent = `$${tax}`;
+                document.getElementById('total').textContent = `$${total}`;
+            }
+        }
+
+        // Payment method selection
+        document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Reset all payment method styles
+                document.querySelectorAll('input[name="payment-method"]').forEach(r => {
+                    const div = r.nextElementSibling;
+                    div.className = div.className.replace('border-emerald-500 bg-emerald-50', 'border-gray-200');
+                });
+                
+                // Highlight selected payment method
+                const selectedDiv = this.nextElementSibling;
+                selectedDiv.className = selectedDiv.className.replace('border-gray-200', 'border-emerald-500 bg-emerald-50');
+                
+                // Show/hide card form
+                const cardForm = document.getElementById('card-form');
+                if (this.value === 'card') {
+                    cardForm.style.display = 'block';
+                } else {
+                    cardForm.style.display = 'none';
+                }
+            });
+        });
+
+        // Process payment
+        function processPayment() {
+            // Simulate payment processing
+            const button = event.target;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                // Show success modal
+                document.getElementById('paymentModal').classList.remove('hidden');
+                button.innerHTML = '<i class="fas fa-lock mr-2"></i>Complete Payment';
+                button.disabled = false;
+            }, 2000);
+        }
+
+        // Redirect to course after successful payment
+        function redirectToCourse() {
+            // Store enrollment status
+            localStorage.setItem('courseEnrolled', 'true');
+            
+            // Redirect to course player
+            window.location.href = 'course-player.html';
+        }
+
+        // Dropdown functionality
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const button = event.target.closest('button');
+            
+            if (!button || !button.onclick) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // Load course details on page load
+        document.addEventListener('DOMContentLoaded', loadCourseDetails);
+
+        // Card number formatting
+        document.getElementById('card-number').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Expiry date formatting
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Catalog - SmartTutor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'emerald': {
+                            50: '#ecfdf5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-graduation-cap text-emerald-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-900">SmartTutor</span>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
+                    <div class="max-w-lg w-full lg:max-w-xs">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                            <input id="globalSearch" class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Search courses..." type="search">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profile Dropdown -->
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-500" onclick="toggleDropdown()">
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Profile">
+                            <span class="text-gray-700 font-medium">John Doe</span>
+                            <i class="fas fa-chevron-down text-gray-400"></i>
+                        </button>
+                        <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="../index.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex pt-16">
+        <!-- Sidebar -->
+        <div class="fixed inset-y-0 left-0 z-40 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out pt-16">
+            <div class="flex flex-col h-full">
+                <nav class="flex-1 px-4 py-6 space-y-2">
+                    <a href="dashboard.html" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-home mr-3"></i>
+                        Dashboard
+                    </a>
+                    <a href="catalog.html" class="bg-emerald-50 text-emerald-700 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-book mr-3"></i>
+                        Course Catalog
+                    </a>
+                    <a href="#" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-play-circle mr-3"></i>
+                        My Courses
+                    </a>
+                    <a href="quiz.html" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-question-circle mr-3"></i>
+                        Quizzes
+                    </a>
+                    <a href="sandbox.html" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-code mr-3"></i>
+                        Code Sandbox
+                    </a>
+                    <a href="payments.html" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-credit-card mr-3"></i>
+                        Payments
+                    </a>
+                    <a href="#" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-chart-line mr-3"></i>
+                        Progress
+                    </a>
+                    <a href="#" class="text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-3 py-2 text-sm font-medium rounded-md">
+                        <i class="fas fa-cog mr-3"></i>
+                        Settings
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 ml-64">
+            <main class="p-6">
+                <!-- Header -->
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Course Catalog</h1>
+                    <p class="text-gray-600">Discover and enroll in courses to advance your skills</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <!-- Main Search -->
+                        <div class="md:col-span-2">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-search text-gray-400"></i>
+                                </div>
+                                <input id="courseSearch" class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500" placeholder="Search for courses, topics, or instructors..." type="search">
+                            </div>
+                        </div>
+                        
+                        <!-- Category Filter -->
+                        <div>
+                            <select class="block w-full py-3 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                <option>All Categories</option>
+                                <option>Programming</option>
+                                <option>Data Science</option>
+                                <option>Web Development</option>
+                                <option>Mobile Development</option>
+                                <option>DevOps</option>
+                                <option>Design</option>
+                                <option>Business</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Level Filter -->
+                        <div>
+                            <select class="block w-full py-3 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500">
+                                <option>All Levels</option>
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Filters -->
+                    <div class="flex flex-wrap items-center gap-4 mt-4 pt-4 border-t border-gray-200">
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="freeOnly" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <label for="freeOnly" class="text-sm text-gray-700">Free courses only</label>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="withCertificate" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <label for="withCertificate" class="text-sm text-gray-700">With certificate</label>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="checkbox" id="newCourses" class="rounded border-gray-300 text-emerald-600 focus:ring-emerald-500">
+                            <label for="newCourses" class="text-sm text-gray-700">New courses</label>
+                        </div>
+                        <div class="ml-auto">
+                            <select class="py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-sm">
+                                <option>Sort by: Most Popular</option>
+                                <option>Sort by: Newest</option>
+                                <option>Sort by: Price: Low to High</option>
+                                <option>Sort by: Price: High to Low</option>
+                                <option>Sort by: Rating</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="mb-8">
+                    <div class="border-b border-gray-200">
+                        <nav class="-mb-px flex space-x-8">
+                            <button class="border-emerald-500 text-emerald-600 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm" onclick="switchTab('all')">
+                                All Courses
+                            </button>
+                            <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm" onclick="switchTab('programming')">
+                                Programming
+                            </button>
+                            <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm" onclick="switchTab('data-science')">
+                                Data Science
+                            </button>
+                            <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm" onclick="switchTab('web-dev')">
+                                Web Development
+                            </button>
+                            <button class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm" onclick="switchTab('design')">
+                                Design
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Results Header -->
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="text-gray-600">Showing <span class="font-semibold">1-12</span> of <span class="font-semibold">156</span> courses</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 border border-gray-300 rounded-md hover:bg-gray-50" title="Grid View">
+                            <i class="fas fa-th text-gray-600"></i>
+                        </button>
+                        <button class="p-2 border border-gray-300 rounded-md hover:bg-gray-50" title="List View">
+                            <i class="fas fa-list text-gray-600"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Course Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                    <!-- Course Card 1 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200&q=80" alt="Course" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 left-2">
+                                <span class="bg-emerald-600 text-white px-2 py-1 rounded-full text-xs font-medium">Bestseller</span>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white rounded-full shadow-sm hover:bg-gray-50">
+                                    <i class="far fa-heart text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">Programming</span>
+                                <span class="ml-2 text-xs text-gray-500">Beginner</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">Complete JavaScript Course 2024: From Zero to Expert!</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">Master JavaScript with the most complete course! Projects, challenges, final exam, ES2024</p>
+                            <div class="flex items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Instructor" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600">Jonas Schmedtmann</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-sm text-gray-600">4.9 (12,847)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-bold text-gray-900">$89.99</span>
+                                    <span class="text-sm text-gray-500 line-through">$199.99</span>
+                                </div>
+                                <button onclick="enrollInCourse('Complete JavaScript Course 2024: From Zero to Expert!', '$89.99')" class="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                                    Enroll
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Card 2 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200&q=80" alt="Course" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 left-2">
+                                <span class="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-medium">Hot</span>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white rounded-full shadow-sm hover:bg-gray-50">
+                                    <i class="far fa-heart text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded">Data Science</span>
+                                <span class="ml-2 text-xs text-gray-500">Intermediate</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">Python for Data Science and Machine Learning Bootcamp</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">Learn how to use NumPy, Pandas, Seaborn, Matplotlib, Plotly, Scikit-Learn, Machine Learning, Tensorflow</p>
+                            <div class="flex items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Instructor" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600">Jose Portilla</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="ml-1 text-sm text-gray-600">4.6 (98,234)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-bold text-gray-900">$94.99</span>
+                                    <span class="text-sm text-gray-500 line-through">$199.99</span>
+                                </div>
+                                <button onclick="enrollInCourse('Python for Data Science and Machine Learning Bootcamp', '$94.99')" class="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                                    Enroll
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Card 3 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200&q=80" alt="Course" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 left-2">
+                                <span class="bg-green-600 text-white px-2 py-1 rounded-full text-xs font-medium">New</span>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white rounded-full shadow-sm hover:bg-gray-50">
+                                    <i class="fas fa-heart text-red-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2 py-1 rounded">Web Development</span>
+                                <span class="ml-2 text-xs text-gray-500">Advanced</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">The Complete React Developer Course (w/ Hooks and Redux)</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">Learn how to build and launch React web applications using React, Redux, Webpack, React-Router, and more!</p>
+                            <div class="flex items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Instructor" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600">Andrew Mead</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-sm text-gray-600">4.7 (45,678)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-bold text-gray-900">$79.99</span>
+                                    <span class="text-sm text-gray-500 line-through">$149.99</span>
+                                </div>
+                                <button onclick="enrollInCourse('The Complete React Developer Course (w/ Hooks and Redux)', '$79.99')" class="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                                    Enroll
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Card 4 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200&q=80" alt="Course" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white rounded-full shadow-sm hover:bg-gray-50">
+                                    <i class="far fa-heart text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded">DevOps</span>
+                                <span class="ml-2 text-xs text-gray-500">Intermediate</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">Docker & Kubernetes: The Complete Guide</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">Build, test, and deploy Docker applications with Kubernetes while learning production-style development workflows</p>
+                            <div class="flex items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Instructor" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600">Stephen Grider</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="ml-1 text-sm text-gray-600">4.6 (23,456)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-bold text-emerald-600">Free</span>
+                                </div>
+                                <button class="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                                    Enroll
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Course Cards (repeat pattern) -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200&q=80" alt="Course" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white rounded-full shadow-sm hover:bg-gray-50">
+                                    <i class="far fa-heart text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-pink-100 text-pink-800 text-xs font-medium px-2 py-1 rounded">Design</span>
+                                <span class="ml-2 text-xs text-gray-500">Beginner</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">UI/UX Design Fundamentals</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">Learn the fundamentals of user interface and user experience design</p>
+                            <div class="flex items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Instructor" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600">Sarah Johnson</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-sm text-gray-600">4.2 (8,234)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-bold text-gray-900">$59.99</span>
+                                </div>
+                                <button class="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                                    Enroll
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More course cards... -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200&q=80" alt="Course" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 left-2">
+                                <span class="bg-yellow-600 text-white px-2 py-1 rounded-full text-xs font-medium">Popular</span>
+                            </div>
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white rounded-full shadow-sm hover:bg-gray-50">
+                                    <i class="far fa-heart text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">Business</span>
+                                <span class="ml-2 text-xs text-gray-500">Intermediate</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">Digital Marketing Masterclass</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">Learn SEO, Social Media Marketing, Email Marketing, and more</p>
+                            <div class="flex items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Instructor" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600">Emily Davis</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="ml-1 text-sm text-gray-600">4.8 (15,678)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-bold text-gray-900">$69.99</span>
+                                    <span class="text-sm text-gray-500 line-through">$129.99</span>
+                                </div>
+                                <button class="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                                    Enroll
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more course cards as needed -->
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200&q=80" alt="Course" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white rounded-full shadow-sm hover:bg-gray-50">
+                                    <i class="far fa-heart text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex items-center mb-2">
+                                <span class="bg-red-100 text-red-800 text-xs font-medium px-2 py-1 rounded">Mobile Dev</span>
+                                <span class="ml-2 text-xs text-gray-500">Advanced</span>
+                            </div>
+                            <h3 class="font-semibold text-gray-900 mb-2 line-clamp-2">iOS App Development with Swift</h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">Build iOS apps from scratch using Swift and Xcode</p>
+                            <div class="flex items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=32&h=32&q=80" alt="Instructor" class="w-6 h-6 rounded-full mr-2">
+                                <span class="text-sm text-gray-600">Mark Wilson</span>
+                            </div>
+                            <div class="flex items-center mb-3">
+                                <div class="flex items-center">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="ml-1 text-sm text-gray-600">4.5 (12,345)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-lg font-bold text-gray-900">$99.99</span>
+                                    <span class="text-sm text-gray-500 line-through">$179.99</span>
+                                </div>
+                                <button class="px-3 py-1 bg-emerald-600 text-white text-sm rounded hover:bg-emerald-700 transition-colors">
+                                    Enroll
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <p class="text-sm text-gray-700">
+                            Showing <span class="font-medium">1</span> to <span class="font-medium">12</span> of <span class="font-medium">156</span> results
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50" disabled>
+                            Previous
+                        </button>
+                        <button class="px-3 py-2 text-sm font-medium text-white bg-emerald-600 border border-emerald-600 rounded-md hover:bg-emerald-700">
+                            1
+                        </button>
+                        <button class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            2
+                        </button>
+                        <button class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            3
+                        </button>
+                        <span class="px-3 py-2 text-sm font-medium text-gray-700">...</span>
+                        <button class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            13
+                        </button>
+                        <button class="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function switchTab(tabName) {
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('nav button');
+            tabs.forEach(tab => {
+                tab.className = 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm';
+            });
+            
+            // Add active class to clicked tab
+            event.target.className = 'border-emerald-500 text-emerald-600 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm';
+            
+            // Here you would typically filter courses based on the selected tab
+            console.log('Switched to tab:', tabName);
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const button = event.target.closest('button');
+            
+            if (!button || !button.onclick) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        // Search functionality
+        document.getElementById('courseSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // Here you would implement actual search filtering
+            console.log('Searching for:', searchTerm);
+        });
+    </script>
+</body>
+</html>
+
+<script>
+// Enrollment function that redirects to payment
+function enrollInCourse(courseName, price) {
+    // Store course details for payment page
+    localStorage.setItem('selectedCourse', JSON.stringify({
+        name: courseName,
+        price: price,
+        instructor: 'Jonas Schmedtmann',
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+    }));
+    
+    // Redirect to payment page
+    window.location.href = 'payments.html';
+}
+</script>
